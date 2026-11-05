@@ -1,5 +1,5 @@
 {
-  "name": "desktop_app",
+  "name": "clockquery-desktop",
   "version": "1.0.22",
   "description": "ClockQuery desktop app (Electron + React + TypeScript)",
   "main": "./out/main/main.js",

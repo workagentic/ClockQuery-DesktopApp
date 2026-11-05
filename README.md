@@ -55,7 +55,7 @@ Timings (heartbeat, sync interval, auto-pause and resume delays) are all in `src
 
 ### Local data
 
-Stored in the OS user data folder (on Windows `%APPDATA%\desktop_app`, named after the package `name`, not the product name):
+Stored in the OS user data folder, which `main.ts` pins to `%APPDATA%\desktop_app` (the folder name from before the package was renamed to `clockquery-desktop`, kept so existing users keep their data):
 
 - `wa-track-local.db` (plus `-wal` and `-shm` files): time entries and the cached task list
 - `crash.log`, `pairing.log`, `sync.log`: plain-text logs

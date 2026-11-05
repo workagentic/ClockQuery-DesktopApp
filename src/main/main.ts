@@ -21,6 +21,10 @@ import { createTrayIcon } from './tray-icon';
 import { loadFlyoutAnchor, saveFlyoutAnchor } from './window-position-store';
 import { wireAutoUpdater, checkForUpdatesNow } from './updater';
 
+// Electron derives the default user-data folder from the package name. Pinned to the original
+// folder so renaming the package does not strand existing users' local database and sign-in.
+app.setPath('userData', join(app.getPath('appData'), 'desktop_app'));
+
 const isDev = !app.isPackaged;
 
 // Required for Windows to reliably show (and correctly attribute) native
