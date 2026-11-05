@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { TaskRecord, TimerSnapshot, UnresolvedTimerInfo } from '../shared/types';
-import waLogo from './assets/wa-logo.png';
+import logoIcon from './assets/clockquery-icon.png';
 
 /** Chevron-right that rotates 90° open — an actual vector icon instead of the previous ▸/▾ text glyphs, so it stays crisp at a larger size. */
 function ChevronIcon({ open }: { open: boolean }) {
@@ -291,7 +291,7 @@ export function TaskPicker() {
       <div className="task-panel">
         <div className="task-panel-header">
           <span className="bar-icon" aria-hidden>
-            <img src={waLogo} alt="" draggable={false} />
+            <img src={logoIcon} alt="" draggable={false} />
           </span>
           <span className="task-panel-title">Start a Task</span>
           <div className="task-panel-actions">
@@ -321,7 +321,7 @@ export function TaskPicker() {
           <div className="banner">
             <span>
               A timer for &ldquo;{unresolved.task?.title ?? unresolved.entry.taskId}&rdquo; was left running when
-              WA Track last closed.
+              ClockQuery last closed.
             </span>
             <div style={{ display: 'flex', gap: 8 }}>
               <button onClick={() => handleResolve('resume')}>Resume</button>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { TimerSnapshot } from '../shared/types';
 import { TIMER_BAR_HEIGHT } from '../shared/config';
-import waLogo from './assets/wa-logo.png';
+import logoIcon from './assets/clockquery-icon.png';
 
 function formatDuration(totalSeconds: number): string {
   const h = Math.floor(totalSeconds / 3600);
@@ -202,8 +202,8 @@ export function TimerWidget() {
         handler so clicking them never also drags the window.
       */}
       <div className="timer-bar" ref={barRef} onMouseDown={handleBarMouseDown}>
-        <span className="bar-icon" ref={iconRef} title={appVersion ? `WA Track v${appVersion}` : undefined} aria-hidden>
-          <img src={waLogo} alt="" draggable={false} />
+        <span className="bar-icon" ref={iconRef} title={appVersion ? `ClockQuery v${appVersion}` : undefined} aria-hidden>
+          <img src={logoIcon} alt="" draggable={false} />
         </span>
 
         <button

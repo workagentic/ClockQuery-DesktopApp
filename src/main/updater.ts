@@ -73,13 +73,13 @@ export function wireAutoUpdater(): void {
   autoUpdater.on('update-not-available', (info) => {
     logUpdate(`up to date: ${info.version}`);
     if (lastCheckWasManual) {
-      showNotification('WA Track', `You're already on the latest version (v${info.version}).`);
+      showNotification('ClockQuery', `You're already on the latest version (v${info.version}).`);
     }
   });
   autoUpdater.on('error', (err) => {
     logUpdate(`error: ${describe(err)}`);
     if (lastCheckWasManual) {
-      showNotification('WA Track — Update check failed', 'Could not check for updates. Check your connection and try again.');
+      showNotification('ClockQuery — Update check failed', 'Could not check for updates. Check your connection and try again.');
     }
   });
   autoUpdater.on('download-progress', (progress) => logUpdate(`downloading update: ${Math.round(progress.percent)}%`));
@@ -95,7 +95,7 @@ export function wireAutoUpdater(): void {
       return;
     }
     updateReadyNotification = new Notification({
-      title: 'WA Track — Update ready',
+      title: 'ClockQuery — Update ready',
       body: `Version ${info.version} has been downloaded. Click to restart and install now.`,
     });
     updateReadyNotification.on('click', () => {
@@ -120,14 +120,14 @@ export function wireAutoUpdater(): void {
  */
 export function checkForUpdatesNow(manual = false): void {
   if (!app.isPackaged) {
-    if (manual) showNotification('WA Track', 'Update checks are disabled in a development build.');
+    if (manual) showNotification('ClockQuery', 'Update checks are disabled in a development build.');
     return;
   }
   lastCheckWasManual = manual;
   autoUpdater.checkForUpdates().catch((err) => {
     logUpdate(`checkForUpdates() rejected: ${describe(err)}`);
     if (manual) {
-      showNotification('WA Track — Update check failed', 'Could not check for updates. Check your connection and try again.');
+      showNotification('ClockQuery — Update check failed', 'Could not check for updates. Check your connection and try again.');
     }
   });
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import waLogo from './assets/wa-logo.png';
+import logoIcon from './assets/clockquery-icon.png';
 import type { PairingStatus } from '../shared/types';
 
 function formatUserCode(code: string): string {
@@ -32,14 +32,14 @@ export function PairingScreen() {
   return (
     <div className="screen">
       <div className="pairing-card">
-        <img src={waLogo} className="pairing-logo" alt="WA Track" draggable={false} />
+        <img src={logoIcon} className="pairing-logo" alt="ClockQuery" draggable={false} />
         <h1 className="pairing-title">Pair this device</h1>
 
         {status.state === 'awaiting_confirmation' && (
           <>
             <div className="code">{formatUserCode(status.userCode)}</div>
             <p className="muted">
-              Go to your WA Track web portal and enter this code on the <strong>/pair</strong> page.
+              Go to your ClockQuery web portal and enter this code on the <strong>/pair</strong> page.
             </p>
             <div className="pairing-waiting">
               <span className="spinner" />
@@ -59,7 +59,7 @@ export function PairingScreen() {
 
         {status.state === 'error' && (
           <>
-            <p className="error">Couldn&rsquo;t reach the WA Track server: {status.message}</p>
+            <p className="error">Couldn&rsquo;t reach the ClockQuery server: {status.message}</p>
             <button
               className="btn-primary"
               onClick={async () => {

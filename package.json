@@ -1,7 +1,7 @@
 {
   "name": "desktop_app",
   "version": "1.0.22",
-  "description": "WA Track desktop app (Electron + React + TypeScript)",
+  "description": "ClockQuery desktop app (Electron + React + TypeScript)",
   "main": "./out/main/main.js",
   "type": "commonjs",
   "scripts": {
@@ -40,7 +40,7 @@
   },
   "build": {
     "appId": "com.workagentic.watrack.desktop",
-    "productName": "WA Track",
+    "productName": "ClockQuery",
     "npmRebuild": false,
     "publish": [
       {
@@ -74,7 +74,7 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "artifactName": "WA-Track-Setup.${ext}"
+      "artifactName": "ClockQuery-Setup.${ext}"
     }
   }
 }

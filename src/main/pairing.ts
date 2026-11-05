@@ -110,7 +110,7 @@ function poll(deviceCode: string, intervalMs: number, generation: number): void 
       consecutiveErrors += 1;
       logPairing(`poll failed (attempt ${consecutiveErrors}): ${describeError(err)}`);
       if (consecutiveErrors >= 3) {
-        setStatus({ state: 'error', message: `Can't reach the WA Track server: ${err instanceof Error ? err.message : String(err)}` });
+        setStatus({ state: 'error', message: `Can't reach the ClockQuery server: ${err instanceof Error ? err.message : String(err)}` });
         return;
       }
       pollTimer = setTimeout(tick, intervalMs);

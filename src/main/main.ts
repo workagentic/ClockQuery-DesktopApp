@@ -71,7 +71,7 @@ function logCrash(label: string, err: unknown) {
 process.on('unhandledRejection', (err) => logCrash('unhandledRejection', err));
 process.on('uncaughtException', (err) => logCrash('uncaughtException', err));
 
-// Only one WA Track instance may run at a time. requestSingleInstanceLock()
+// Only one ClockQuery instance may run at a time. requestSingleInstanceLock()
 // atomically claims (or fails to claim) a lock file OS-wide — the first
 // launch wins it and keeps running; every subsequent launch fails to acquire
 // it here and must quit immediately rather than proceeding to create its own
@@ -116,7 +116,7 @@ function createPairingWindow(): BrowserWindow {
     width: 480,
     height: 420,
     resizable: true,
-    title: 'WA Track — Pair this device',
+    title: 'ClockQuery — Pair this device',
     // Packaged builds already show build/icon.ico via the compiled exe's own
     // resources; this only matters in dev, where Electron has no exe icon to
     // fall back to and would otherwise show the generic Electron icon in the
@@ -450,10 +450,10 @@ function createTray() {
   // Shows the actually-running version on hover — the simplest possible way
   // to confirm at a glance whether an update really landed, rather than
   // having to infer it from subtler UI changes.
-  tray.setToolTip(`WA Track v${app.getVersion()}`);
+  tray.setToolTip(`ClockQuery v${app.getVersion()}`);
   const menu = Menu.buildFromTemplate([
     {
-      label: `WA Track v${app.getVersion()}`,
+      label: `ClockQuery v${app.getVersion()}`,
       enabled: false,
     },
     { type: 'separator' },
@@ -533,7 +533,7 @@ function wireTimerResumedNotification() {
       const title = taskId ? getCachedTasks().find((t) => t.id === taskId)?.title : null;
 
       const notification = new Notification({
-        title: 'WA Track — Timer resumed',
+        title: 'ClockQuery — Timer resumed',
         body: title
           ? `Your timer for "${title}" has resumed successfully.`
           : 'Your timer has resumed successfully.',
