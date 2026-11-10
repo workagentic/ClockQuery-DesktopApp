@@ -20,6 +20,9 @@ import { startSyncWorker, stopSyncWorker, runSyncCycle } from './sync-worker';
 import { createTrayIcon } from './tray-icon';
 import { loadFlyoutAnchor, saveFlyoutAnchor } from './window-position-store';
 import { wireAutoUpdater, checkForUpdatesNow } from './updater';
+import { setupUserDataDir } from './legacy-migration';
+
+setupUserDataDir();
 
 const isDev = !app.isPackaged;
 

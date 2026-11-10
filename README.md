@@ -44,7 +44,7 @@ Only `.env.production` is bundled in the installer, so a packaged app always rea
 | Pairing | `src/main/pairing.ts` | Device-code login. The app shows a short code, the user enters it on the web portal's Pair page, no password is typed in the app |
 | Tokens | `src/main/token-store.ts`, `jwt.ts` | Stores and refreshes the access/refresh tokens |
 | Timer | `src/main/timer-service.ts` | Start, pause, resume, stop. Saves progress every 30 s, pauses after 30 s of lock/sleep and does not count sleep time |
-| Local DB | `src/main/local-db.ts` | `time_entries` and `tasks_cache` tables in `wa-track-local.db` (WAL mode) |
+| Local DB | `src/main/local-db.ts` | `time_entries` and `tasks_cache` tables in `clockquery-local.db` (WAL mode) |
 | Sync | `src/main/sync-worker.ts` | Every 18 s sends pending entries, plus the one still running, in one batch to `POST /time-entries/sync` |
 | Tray and windows | `src/main/main.ts`, `tray-icon.ts` | Tray icon and menu, timer bar, task picker, pairing window |
 | Updates | `src/main/updater.ts` | Checks GitHub releases, downloads quietly, asks to restart |
@@ -55,12 +55,15 @@ Timings (heartbeat, sync interval, auto-pause and resume delays) are all in `src
 
 ### Local data
 
-Stored in the OS user data folder (on Windows `%APPDATA%\desktop_app`, named after the package `name`, not the product name):
+Stored in the OS user data folder, which `main.ts` pins to `%APPDATA%\desktop_app` (the folder every installed version has used, kept so existing users stay signed in and keep their data):
 
-- `wa-track-local.db` (plus `-wal` and `-shm` files): time entries and the cached task list
-- `crash.log`, `pairing.log`, `sync.log`: plain-text logs
+- `clockquery-local.db` (plus `-wal` and `-shm` files): time entries and the cached task list
+- `auth.enc`: encrypted tokens
+- `crash.log`, `pairing.log`, `sync.log`, `update.log`: plain-text logs
 
-If the app closes while a timer is running, the open entry stays in the database and the app offers Resume or Stop on the next launch. The database file name is intentionally unchanged from the old branding so existing users keep their unsynced entries.
+If the app closes while a timer is running, the open entry stays in the database and the app offers Resume or Stop on the next launch.
+
+On the first launch after the rebrand, `src/main/legacy-migration.ts` renames `wa-track-local.db` to `clockquery-local.db`, so existing users keep unsynced entries. The folder itself is not moved: Chromium creates `%APPDATA%\ClockQuery` and its `Local State` key file before our code runs, and `auth.enc` can only be decrypted with the `Local State` beside it, so moving the folder signs everyone out.
 
 ## Branding and icons
 
@@ -72,7 +75,7 @@ The app icon is `build/icon.ico` (Windows) and `build/icon.png`, the CQ mark on 
 2. Run `npm run dist:win`. The installer is `release/ClockQuery-Setup.exe`.
 3. Publish it as a GitHub release; installed apps pick it up through electron-updater.
 
-The `appId` (`com.workagentic.watrack.desktop`) is kept as is on purpose: changing it makes Windows treat the app as a different one and breaks upgrades.
+The `appId` (`com.workagentic.watrack.desktop`) is the one old name kept on purpose: changing it makes Windows treat the app as a different one and breaks upgrades for installed users.
 
 The installer is not code-signed, so Windows SmartScreen shows "Windows protected your PC" on first run. Users click More info, then Run anyway.
 

@@ -1,6 +1,6 @@
 {
-  "name": "desktop_app",
-  "version": "1.0.22",
+  "name": "clockquery-desktop",
+  "version": "2.0.0",
   "description": "ClockQuery desktop app (Electron + React + TypeScript)",
   "main": "./out/main/main.js",
   "type": "commonjs",
@@ -45,8 +45,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "workAgentic",
-        "repo": "WA-Tract-Desktop-App",
+        "owner": "workagentic",
+        "repo": "ClockQuery-DesktopApp",
         "releaseType": "release"
       }
     ],

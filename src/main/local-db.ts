@@ -1,13 +1,16 @@
 import Database from 'better-sqlite3';
 import { app } from 'electron';
 import { join } from 'path';
+import { migrateLegacyDbFiles } from './legacy-migration';
 import type { TaskRecord, TimeEntryRecord } from '../shared/types';
 
 let db: Database.Database | null = null;
 
 function getDb(): Database.Database {
   if (!db) {
-    db = new Database(join(app.getPath('userData'), 'wa-track-local.db'));
+    const dir = app.getPath('userData');
+    migrateLegacyDbFiles(dir, 'wa-track-local.db', 'clockquery-local.db');
+    db = new Database(join(dir, 'clockquery-local.db'));
     db.pragma('journal_mode = WAL');
   }
   return db;

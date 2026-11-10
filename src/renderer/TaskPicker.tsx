@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { TaskRecord, TimerSnapshot, UnresolvedTimerInfo } from '../shared/types';
-import logoIcon from './assets/clockquery-icon.png';
+import logoIcon from './assets/clockquery-mark.png';
 
 /** Chevron-right that rotates 90° open — an actual vector icon instead of the previous ▸/▾ text glyphs, so it stays crisp at a larger size. */
 function ChevronIcon({ open }: { open: boolean }) {
