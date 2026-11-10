@@ -1,34 +1,16 @@
 import { app } from 'electron';
-import { cpSync, existsSync, renameSync } from 'fs';
+import { existsSync, renameSync } from 'fs';
 import { join } from 'path';
 
-const LEGACY_USER_DATA_DIR = 'desktop_app';
-const USER_DATA_DIR = 'ClockQuery';
-
 /**
- * Points userData at %APPDATA%\ClockQuery and, on the first launch after the rebrand, moves the
- * old %APPDATA%\desktop_app folder across so existing users keep their pairing and unsynced entries.
- * Must run before app.whenReady(): nothing has opened files in userData yet.
+ * userData stays at %APPDATA%\desktop_app, the folder every installed version has used. Moving it
+ * to %APPDATA%\ClockQuery (Electron's default for this productName) does not work: Chromium
+ * creates that default folder and its Local State file before any of our code runs, so the old
+ * folder can never be moved in cleanly, and auth.enc is only decryptable with the Local State key
+ * that sits beside it. The result was every user being signed out.
  */
 export function setupUserDataDir(): void {
-  const appData = app.getPath('appData');
-  const target = join(appData, USER_DATA_DIR);
-  const legacy = join(appData, LEGACY_USER_DATA_DIR);
-
-  if (!existsSync(target) && existsSync(legacy)) {
-    try {
-      renameSync(legacy, target);
-    } catch {
-      // Rename fails if another process still holds a file open; copying keeps the user's data either way.
-      try {
-        cpSync(legacy, target, { recursive: true });
-      } catch {
-        // Starting fresh is better than not starting; the legacy folder is left untouched for recovery.
-      }
-    }
-  }
-
-  app.setPath('userData', target);
+  app.setPath('userData', join(app.getPath('appData'), 'desktop_app'));
 }
 
 /** Renames the pre-rebrand SQLite file (and its WAL side files) so unsynced entries carry over. */

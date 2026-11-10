@@ -55,7 +55,7 @@ Timings (heartbeat, sync interval, auto-pause and resume delays) are all in `src
 
 ### Local data
 
-Stored in the OS user data folder, `%APPDATA%\ClockQuery` on Windows:
+Stored in the OS user data folder, which `main.ts` pins to `%APPDATA%\desktop_app` (the folder every installed version has used, kept so existing users stay signed in and keep their data):
 
 - `clockquery-local.db` (plus `-wal` and `-shm` files): time entries and the cached task list
 - `auth.enc`: encrypted tokens
@@ -63,7 +63,7 @@ Stored in the OS user data folder, `%APPDATA%\ClockQuery` on Windows:
 
 If the app closes while a timer is running, the open entry stays in the database and the app offers Resume or Stop on the next launch.
 
-On the first launch after the rebrand, `src/main/legacy-migration.ts` moves the old `%APPDATA%\desktop_app` folder to `%APPDATA%\ClockQuery` and renames `wa-track-local.db` to `clockquery-local.db`, so existing users stay paired and keep unsynced entries.
+On the first launch after the rebrand, `src/main/legacy-migration.ts` renames `wa-track-local.db` to `clockquery-local.db`, so existing users keep unsynced entries. The folder itself is not moved: Chromium creates `%APPDATA%\ClockQuery` and its `Local State` key file before our code runs, and `auth.enc` can only be decrypted with the `Local State` beside it, so moving the folder signs everyone out.
 
 ## Branding and icons
 
