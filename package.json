@@ -45,8 +45,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "workAgentic",
-        "repo": "WA-Tract-Desktop-App",
+        "owner": "workagentic",
+        "repo": "ClockQuery-DesktopApp",
         "releaseType": "release"
       }
     ],
