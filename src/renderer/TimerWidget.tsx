@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { TimerSnapshot } from '../shared/types';
 import { TIMER_BAR_HEIGHT } from '../shared/config';
-import logoIcon from './assets/clockquery-icon.png';
+import logoIcon from './assets/clockquery-mark.png';
 
 function formatDuration(totalSeconds: number): string {
   const h = Math.floor(totalSeconds / 3600);

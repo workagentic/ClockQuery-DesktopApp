@@ -154,9 +154,11 @@ button {
 }
 
 .bar-icon {
-  width: 22px;
-  height: 22px;
-  min-width: 22px;
+  /* The CQ mark is wider than tall (3:2), so the box is sized to the mark itself; a square box left
+     it padded and visually off the text's centre line. */
+  width: 27px;
+  height: 18px;
+  min-width: 27px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -226,6 +228,7 @@ button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 18px;
 }
 
 .bar-task-name:hover {
@@ -240,6 +243,7 @@ button {
   white-space: nowrap;
   font-size: 13px;
   font-weight: 600;
+  line-height: 18px;
   pointer-events: none;
 }
 
@@ -248,6 +252,7 @@ button {
   font-variant-numeric: tabular-nums;
   color: #4b5563;
   flex-shrink: 0;
+  line-height: 18px;
 }
 
 .bar-controls {
@@ -309,6 +314,7 @@ button {
   font-size: 14px;
   font-weight: 600;
   color: #4b5563;
+  line-height: 18px;
 }
 
 .task-panel-actions {
